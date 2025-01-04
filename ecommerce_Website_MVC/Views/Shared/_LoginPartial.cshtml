@@ -2,13 +2,72 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+<style>
+    /* General Navbar Styling */
+    .navbar-nav {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .nav-item {
+        margin-right: 20px;
+        position: relative;
+    }
+
+    .nav-link {
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+        color: #333;
+        transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: #007bff;
+    }
+
+    /* Active Link Styling */
+    .nav-item.active .nav-link {
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    /* Custom Button Styling */
+    .nav-link.btn-link {
+        font-size: 1rem;
+        background-color: transparent;
+        border: none;
+        color: #333;
+        cursor: pointer;
+        text-decoration: underline;
+        transition: color 0.3s ease;
+    }
+
+    .nav-link.btn-link:hover {
+        color: #ff6347;
+    }
+
+    /* Adjusting the Position of the User's Name */
+    .user-info {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #333;
+        margin-right: 20px;
+    }
+
+</style>
+
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         var user = await UserManager.GetUserAsync(User);
         var username = user?.UserName;
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@username</a>
+            <a class="nav-link text-dark user-info" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@username</a>
         </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
@@ -26,4 +85,3 @@
         </li>
     }
 </ul>
-

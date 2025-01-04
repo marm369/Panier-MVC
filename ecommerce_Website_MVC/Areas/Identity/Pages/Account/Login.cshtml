@@ -5,61 +5,162 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form id="account" method="post">
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Input.Email"></label>
-                    <input asp-for="Input.Email" class="form-control" />
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.Password"></label>
-                    <input asp-for="Input.Password" class="form-control" />
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
+<style>
+    /* General Page Styling */
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding-top: 50px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    section {
+        background-color: #f9f9f9;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form Styling */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        height: 45px;
+        font-size: 1rem;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        font-size: 1.1rem;
+        padding: 10px 20px;
+        width: 100%;
+        border-radius: 4px;
+        border: none;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-link {
+        font-size: 1rem;
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .btn-link:hover {
+        color: #0056b3;
+    }
+
+    /* Checkboxes and Links */
+    .checkbox label {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    /* External Login Buttons */
+    .btn-external {
+        background-color: #ddd;
+        color: #333;
+        font-size: 1rem;
+        padding: 10px 20px;
+        margin-top: 10px;
+        width: 100%;
+        border-radius: 4px;
+        border: none;
+        transition: background-color 0.3s;
+    }
+
+    .btn-external:hover {
+        background-color: #bbb;
+    }
+
+    /* Column Layout */
+    .col-md-4 {
+        margin-bottom: 30px;
+    }
+
+
+</style>
+
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+    <div class="row">
+        <!-- Login Form Section -->
+        <div class="col-md-4">
+            <section>
+                <form id="account" method="post">
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <!-- Email Input -->
+                    <div class="form-group">
+                        <label asp-for="Input.Email" class="form-label">Email</label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
                     </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
-                </div>
-            </form>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h4>Use another service to log in.</h4>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+
+                    <!-- Password Input -->
+                    <div class="form-group">
+                        <label asp-for="Input.Password" class="form-label">Password</label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <!-- Remember Me Checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                    </div>
+
+                    <!-- Links -->
+                    <div class="form-group">
+                        <p><a id="forgot-password" class="btn-link" asp-page="./ForgotPassword">Forgot your password?</a></p>
+                        <p><a class="btn-link" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a></p>
+                        <p><a id="resend-confirmation" class="btn-link" asp-page="./ResendEmailConfirmation">Resend email confirmation</a></p>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <!-- External Login Section -->
+        <div class="col-md-6">
+            <section>
+                <h4>Use another service to log in.</h4>
+                <hr />
+                @if ((Model.ExternalLogins?.Count ?? 0) == 0)
                 {
                     <div>
-                        <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
-                        </p>
+                        <p>There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a> for details on setting up external services.</p>
                     </div>
                 }
                 else
@@ -69,14 +170,14 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    <button type="submit" class="btn btn-external" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                                 }
                             </p>
                         </div>
                     </form>
                 }
-            }
-        </section>
+            </section>
+        </div>
     </div>
 </div>
 

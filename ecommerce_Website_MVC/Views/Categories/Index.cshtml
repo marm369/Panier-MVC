@@ -3,32 +3,141 @@
 @{
     ViewData["Title"] = "Categories";
 }
-<section id="product1" class="section-p1">
-    <h2>Categories</h2>
-    <p>New Collection</p>
-    @if (User.IsInRole("Admin"))
-    {
-        <a class="nav-link" asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
-    }
-    <div class="pro-container">
-        @foreach (var category in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">@category.nomCategorie</h5>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ecommerce_Website_MVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
+    <style>
+        /* Style global pour la page */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
 
-                        <div class="image-grid d-flex flex-wrap">
-                            @foreach (var imageUrl in category.imageUrls)
-                            {
-                                <div class="grid-image" style="width: 50%; height: 100px; background-size: cover; background-image: url('@imageUrl');"></div>
-                            }
+        /* Style de la section Categories */
+        #product1 {
+            padding: 50px 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+            /* Titre de la section */
+            #product1 h2 {
+                font-size: 2.5rem;
+                color: #333;
+                margin-bottom: 10px;
+            }
+
+            #product1 p {
+                font-size: 1.2rem;
+                color: #777;
+                margin-bottom: 20px;
+            }
+
+        /* Style du conteneur de produits */
+        .pro-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* Style des cartes de catégories */
+        .card {
+            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            /* Style du titre de la carte */
+            .card .card-title {
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+        /* Style de la grille d'images */
+        .image-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .grid-image {
+            flex: 1;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+            /* Effet de survol sur les images */
+            .grid-image:hover {
+                transform: scale(1.05);
+            }
+
+        /* Style du bouton */
+        .card .btn {
+            background-color: #FF9800;
+            color: white;
+            font-weight: bold;
+            border-radius: 20px;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease;
+        }
+
+            .card .btn:hover {
+                background-color: #FF5722;
+            }
+    </style>
+</head>
+<body>
+
+    <section id="product1" class="section-p1">
+        <h2>Categories</h2>
+        @if (User.IsInRole("Admin"))
+        {
+            <a class="nav-link" asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
+        }
+        <div class="pro-container">
+            @foreach (var category in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@category.nomCategorie</h5>
+
+                            <div class="image-grid d-flex flex-wrap">
+                                @foreach (var imageUrl in category.imageUrls)
+                                {
+                                    <div class="grid-image" style="background-image: url('@imageUrl');"></div>
+                                }
+                            </div>
+                            <a asp-controller="Produits" asp-action="Index" asp-route-idCategorie="@category.id" class="btn btn-sm mt-3">Voir Produits</a>
                         </div>
-                        <a asp-controller="Produits" asp-action="Index" asp-route-idCategorie="@category.id" class="btn btn-secondary btn-sm mt-3">Voir Produits</a>
                     </div>
                 </div>
-            </div>
-        }
-    </div>
-</section>
+            }
+        </div>
+    </section>
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

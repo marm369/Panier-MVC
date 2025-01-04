@@ -1,46 +1,147 @@
 ﻿@model ecommerce_Website_MVC.Models.Produit
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Détails du Produit";
 }
 
-<h1>Details</h1>
-<section id="product1" class="section-p1">
-    <div class="pro-container">
-        <div class="pro">
+<style>
+    /* Product Container */
+    .product-container {
+        display: flex;
+        gap: 2rem;
+        padding: 2rem;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .product-image {
+        flex: 1;
+        text-align: center;
+    }
+
+    .product-img {
+        max-width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-info {
+        flex: 2;
+    }
+
+    .product-name {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .product-description {
+        margin-top: 1rem;
+        color: #555;
+        line-height: 1.5;
+    }
+
+    .product-meta p {
+        margin: 0.5rem 0;
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .product-rating i {
+        color: #f0ad4e;
+    }
+
+    .product-rating .empty {
+        color: #ddd;
+    }
+
+    .product-price h3 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-top: 1rem;
+    }
+
+    .quantity-input {
+        display: flex;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    .input-quantity {
+        width: 60px;
+        margin-left: 10px;
+        padding: 5px;
+        text-align: center;
+    }
+
+    .btn {
+        margin-top: 1rem;
+        padding: 0.5rem 1.5rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-primary {
+        background-color: #28a745;
+    }
+
+    .btn-primary:hover {
+        background-color: #218838;
+    }
+</style>
+
+<section id="product-details" class="section-p1">
+    <div class="product-container">
+        <!-- Product Image Section -->
+        <div class="product-image">
             <img src="@Model.imageUrl" alt="@Model.nomProduit" class="img-fluid product-img" />
-            <div class="des">
-                <span class="product-name">@Model.nomProduit</span>
-                <h5 class="product-desc">@Model.description</h5>
+        </div>
 
-                <div class="product-details">
-                    <p><strong>Catégorie :</strong> @Model.categorie.nomCategorie</p>
-                    <p><strong>Quantité en stock :</strong> @Model.qteStock</p>
-                </div>
+        <!-- Product Info Section -->
+        <div class="product-info">
+            <h1 class="product-name">@Model.nomProduit</h1>
+            <p class="product-description">@Model.description</p>
 
-                <div class="star">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-
-                <h4 class="product-price">@Model.prixProduit Dh</h4>
+            <div class="product-meta">
+                <p><strong>Catégorie :</strong> @Model.categorie.nomCategorie</p>
+                <p><strong>Quantité en stock :</strong> @Model.qteStock</p>
             </div>
 
+            <!-- Product Rating Section -->
+            <div class="product-rating">
+                @for (int i = 0; i < 5; i++)
+                {
+                    <i class="fas fa-star @((i < 4) ? "filled" : "empty")"></i>
+                }
+            </div>
+
+            <!-- Price Section -->
+            <div class="product-price">
+                <h3>@Model.prixProduit Dh</h3>
+            </div>
+
+            <!-- Add to Cart Section -->
             <form method="post" asp-action="AddToCart" asp-controller="Achats">
                 <input type="hidden" name="ProductId" value="@Model.id" />
                 <input type="hidden" name="idCategorie" value="@Model.categorieId" />
                 <input type="hidden" name="page" value="1" />
 
-                <div class="input-group">
-                    <label for="quantity-@Model.id">Quantité :</label>
+                <div class="quantity-input">
+                    <label for="quantitySelected">Quantité :</label>
                     <input type="number" name="quantitySelected" id="quantitySelected" value="1" min="1" max="@Model.qteStock" class="input-quantity" />
                 </div>
 
-                <button type="submit" class="cart">
-                    <i class="fas fa-shopping-cart"></i>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-shopping-cart"></i> Ajouter au Panier
                 </button>
             </form>
         </div>

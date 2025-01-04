@@ -7,46 +7,135 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
-    <!----------x---------------Font Awesome Icons --------x------->
-    <!----------x---------------Google font --------x------->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alkatra&family=Berkshire+Swash&family=Comic+Neue:wght@700&family=Gentium+Book+Plus:wght@400;700&family=Lato:ital,wght@0,400;0,700;0,900;1,700&family=Lexend+Deca:wght@500&family=Lexend:wght@500&family=Montserrat:wght@500&family=Open+Sans:wght@500;800&family=Roboto:wght@100;400&family=Sue+Ellen+Francisco&family=Work+Sans:wght@400;700;900&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900;&display:swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        /* Navbar Style */
+        header {
+            background: linear-gradient(135deg, #FFB74D, #FF9800);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
+        .navbar {
+            padding: 15px 30px;
+        }
 
+        .navbar-brand img {
+            height: 40px;
+            width: auto;
+        }
+
+        .navbar-toggler {
+            border: none;
+            background-color: transparent;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+        }
+
+            /* Effet au survol des liens de la navbar */
+            .navbar-nav .nav-link:hover {
+                color: #333;
+                background-color: #fff;
+                border-radius: 20px;
+            }
+
+        /* Formulaire de recherche */
+        form .form-control {
+            border-radius: 30px;
+            padding-left: 20px;
+            border: 2px solid #fff;
+        }
+
+        form .btn-outline-success {
+            border-radius: 30px;
+            background-color: #fff;
+            color: #FF9800;
+            font-weight: bold;
+        }
+
+            form .btn-outline-success:hover {
+                background-color: #FF5722;
+                color: #fff;
+            }
+
+        /* Panier */
+        .panier-link {
+            font-size: 18px;
+            padding: 10px 15px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #FF9800;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+            .panier-link:hover {
+                background-color: #FF5722;
+                color: #fff;
+            }
+
+        /* Footer Style */
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+            footer a {
+                color: #FFEB3B;
+                font-weight: bold;
+            }
+
+                footer a:hover {
+                    color: #fff;
+                }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Categories" asp-action="Index">
-                    <img src="/images/shopsphere.png" alt="Website Logo" style="height: 40px;">
+                    <img src="/images/shopsphere.png" alt="Website Logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="Index">Home</a>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
                     </ul>
-
-                    <form class="form-inline my-2 my-lg-0" method="get" asp-controller="Produits" asp-action="searchProductByName">
+                    <form class="form-inline ml-3" method="get" asp-controller="Produits" asp-action="searchProductByName">
                         <input class="form-control mr-sm-2" type="search" placeholder="Chercher un produit" name="searchTerm" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
                     </form>
                     <partial name="_LoginPartial" />
-                    <a class="nav-link text-dark panier-link" asp-controller="Achats" asp-area="" asp-action="GetPanier"> <i class="fas fa-shopping-cart"></i> Panier</a>
+                    <a class="nav-link panier-link" asp-controller="Achats" asp-area="" asp-action="GetPanier">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -58,6 +147,7 @@
             &copy; 2024 - ecommerce_Website - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
