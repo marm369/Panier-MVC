@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-5">
+    <h1>Dashboard Administrateur</h1>
+    <p>Bienvenue, @User.Identity.Name !</p>
+
+    <div class="row mt-4">
+        <!-- Section Gestion des Produits -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Gérer les Produits</h5>
+                    <p class="card-text">Ajouter, modifier ou supprimer des produits.</p>
+                    <a asp-controller="Produits" asp-action="Index" class="btn btn-primary">Voir Produits</a>
+                    <a asp-controller="Produits" asp-action="Create" class="btn btn-success">Ajouter un Produit</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Gestion des Catégories -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Gérer les Catégories</h5>
+                    <p class="card-text">Ajouter, modifier ou supprimer des catégories.</p>
+                    <a asp-controller="Categories" asp-action="Index" class="btn btn-primary">Voir Catégories</a>
+                    <a asp-controller="Categories" asp-action="Create" class="btn btn-success">Ajouter une Catégorie</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

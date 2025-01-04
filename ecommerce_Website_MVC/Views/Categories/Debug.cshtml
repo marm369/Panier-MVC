@@ -1,0 +1,13 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "Debug Admin";
+}
+
+<h2>Debug Information</h2>
+
+<ul>
+    @foreach (var info in Model)
+    {
+        <li>@info</li>
+    }
+</ul>

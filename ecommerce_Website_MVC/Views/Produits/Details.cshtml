@@ -1,0 +1,48 @@
+﻿@model ecommerce_Website_MVC.Models.Produit
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+<section id="product1" class="section-p1">
+    <div class="pro-container">
+        <div class="pro">
+            <img src="@Model.imageUrl" alt="@Model.nomProduit" class="img-fluid product-img" />
+            <div class="des">
+                <span class="product-name">@Model.nomProduit</span>
+                <h5 class="product-desc">@Model.description</h5>
+
+                <div class="product-details">
+                    <p><strong>Catégorie :</strong> @Model.categorie.nomCategorie</p>
+                    <p><strong>Quantité en stock :</strong> @Model.qteStock</p>
+                </div>
+
+                <div class="star">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+
+                <h4 class="product-price">@Model.prixProduit Dh</h4>
+            </div>
+
+            <form method="post" asp-action="AddToCart" asp-controller="Achats">
+                <input type="hidden" name="ProductId" value="@Model.id" />
+                <input type="hidden" name="idCategorie" value="@Model.categorieId" />
+                <input type="hidden" name="page" value="1" />
+
+                <div class="input-group">
+                    <label for="quantity-@Model.id">Quantité :</label>
+                    <input type="number" name="quantitySelected" id="quantitySelected" value="1" min="1" max="@Model.qteStock" class="input-quantity" />
+                </div>
+
+                <button type="submit" class="cart">
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
